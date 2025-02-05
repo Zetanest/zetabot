@@ -22,6 +22,8 @@ class ZetaBot {
     // Create chatbot container
     const chatContainer = document.createElement("div");
     chatContainer.style.position = "fixed";
+    chatContainer.style.zIndex = "99999"; // Makes chatbot appear above everything
+    chatContainer.style.pointerEvents = "auto"; // Ensures interactions work
     chatContainer.style.bottom = "20px"; // Adjusted placement
     chatContainer.style.right = "20px";
     chatContainer.style.width = "350px";
