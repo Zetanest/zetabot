@@ -81,7 +81,9 @@ class ZetaBot {
           // Send message to backend
           fetch("https://www.zetanest.com/chatbot", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" 
+                  "Authorization": "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" // Replace this
+                     },
             body: JSON.stringify({ inquiry: message, customer_name: "Guest" }),
           })
           .then(response => response.json())
