@@ -22,10 +22,11 @@ class ZetaBot {
     // Create chatbot container
     const chatContainer = document.createElement("div");
     chatContainer.style.position = "fixed";
-    chatContainer.style.bottom = "80px";
+    chatContainer.style.bottom = "20px"; // Adjusted placement
     chatContainer.style.right = "20px";
-    chatContainer.style.width = "300px";
-    chatContainer.style.height = "400px";
+    chatContainer.style.width = "350px";
+    chatContainer.style.height = "500px"; // Increased height for visibility
+    chatContainer.style.maxHeight = "90vh"; // Prevents overflow
     chatContainer.style.backgroundColor = "white";
     chatContainer.style.border = "1px solid #ccc";
     chatContainer.style.borderRadius = "10px";
@@ -49,7 +50,7 @@ class ZetaBot {
     const chatMessages = document.createElement("div");
     chatMessages.style.flex = "1";
     chatMessages.style.padding = "10px";
-    chatMessages.style.overflowY = "auto";
+    chatMessages.style.overflowY = "auto"; // Allows scrolling if needed
     chatContainer.appendChild(chatMessages);
 
     // Input field
