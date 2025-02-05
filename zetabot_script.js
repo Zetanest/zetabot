@@ -27,7 +27,7 @@ class ZetaBot {
     chatContainer.style.bottom = "20px"; // Adjusted placement
     chatContainer.style.right = "20px";
     chatContainer.style.width = "350px";
-    chatContainer.style.height = "500px"; // Increased height for visibility
+    chatContainer.style.height = "300px"; // Increased height for visibility
     chatContainer.style.maxHeight = "90vh"; // Prevents overflow
     chatContainer.style.backgroundColor = "white";
     chatContainer.style.border = "1px solid #ccc";
