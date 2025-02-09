@@ -22,13 +22,10 @@ class ZetaBot {
     // Create chatbot container
     const chatContainer = document.createElement("div");
     chatContainer.style.position = "fixed";
-    chatContainer.style.zIndex = "99999"; // Makes chatbot appear above everything
-    chatContainer.style.pointerEvents = "auto"; // Ensures interactions work
-    chatContainer.style.bottom = "20px"; // Adjusted placement
+    chatContainer.style.bottom = "80px";
     chatContainer.style.right = "20px";
-    chatContainer.style.width = "350px";
-    chatContainer.style.height = "500px"; // Increased height for visibility
-    chatContainer.style.maxHeight = "90vh"; // Prevents overflow
+    chatContainer.style.width = "300px";
+    chatContainer.style.height = "400px";
     chatContainer.style.backgroundColor = "white";
     chatContainer.style.border = "1px solid #ccc";
     chatContainer.style.borderRadius = "10px";
@@ -52,7 +49,7 @@ class ZetaBot {
     const chatMessages = document.createElement("div");
     chatMessages.style.flex = "1";
     chatMessages.style.padding = "10px";
-    chatMessages.style.overflowY = "auto"; // Allows scrolling if needed
+    chatMessages.style.overflowY = "auto";
     chatContainer.appendChild(chatMessages);
 
     // Input field
@@ -68,6 +65,9 @@ class ZetaBot {
     // Button toggle
     chatButton.addEventListener("click", () => {
       chatContainer.style.display = chatContainer.style.display === "none" ? "flex" : "none";
+      if (chatContainer.style.display === "flex" && !chatMessages.innerHTML) {
+        chatMessages.innerHTML += `<div style='background: #ccc; padding: 5px; margin: 5px 0; border-radius: 5px;'>Beep boop! Greetings, traveler! How may I assist you on your journey to smarter living?</div>`;
+      }
     });
 
     // Handle message send
@@ -79,15 +79,31 @@ class ZetaBot {
           chatInput.value = "";
 
           // Send message to backend
-         fetch("https://zetabot.vercel.app/api/chat", {
+          fetch("https://zetabot.vercel.app/api/chat", {
             method: "POST",
-            headers: { "Content-Type": "application/json" 
-                                      },
-            body: JSON.stringify({ inquiry: message, customer_name: "Guest" }),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message }),
           })
           .then(response => response.json())
           .then(data => {
-            chatMessages.innerHTML += `<div style='background: #ccc; padding: 5px; margin: 5px 0; border-radius: 5px;'>${data.response}</div>`;
+            if (data.reply) {
+              chatMessages.innerHTML += `<div style='background: #ccc; padding: 5px; margin: 5px 0; border-radius: 5px;'>${data.reply}</div>`;
+            } else {
+              chatMessages.innerHTML += `<div style='background: red; color: white; padding: 5px; margin: 5px 0; border-radius: 5px;'>Would you like a complimentary in-depth assessment to address your smart home challenges? If yes, please provide your full name, phone number, and email, and one of our experts will get back to you within 24 hours.</div>`;
+              
+              // Capture user details
+              let name = prompt("Please enter your full name:");
+              let phone = prompt("Please enter your phone number:");
+              let email = prompt("Please enter your email:");
+              
+              if (name && phone && email) {
+                fetch("https://zetabot.vercel.app/api/notify", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ name, phone, email }),
+                });
+              }
+            }
           })
           .catch(() => {
             chatMessages.innerHTML += `<div style='background: red; color: white; padding: 5px; margin: 5px 0; border-radius: 5px;'>Error fetching response</div>`;
