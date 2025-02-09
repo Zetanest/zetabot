@@ -79,7 +79,7 @@ class ZetaBot {
           chatInput.value = "";
 
           // Send message to backend
-          fetch("https://www.zetanest.com/chatbot", {
+         fetch("https://zetabot.vercel.app/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" 
                                       },
